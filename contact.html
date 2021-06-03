@@ -418,6 +418,11 @@
                 phone: document.getElementById("phone").value,
                 comments: document.getElementById("comments").value,
             }
+            sendmessage(messagedata)
+            return false
+        }
+
+        function sendmessage(messagedata) {
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "https://us-central1-slackbot-f87d9.cloudfunctions.net/remind", true);
             xhr.onreadystatechange = function () {
@@ -432,7 +437,6 @@
             };
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.send(JSON.stringify(messagedata));
-            return false
         }
     </script>
 
