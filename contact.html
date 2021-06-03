@@ -422,11 +422,27 @@
                 phone: document.getElementById("phone").value,
                 comments: document.getElementById("comments").value,
             }
-            await sendmessage('Name:' + messagedata.name)
-            await sendmessage('email:' + messagedata.email)
-            await sendmessage('phone:' + messagedata.phone)
-            await sendmessage('comments:' + messagedata.comments)
+            await sendmessage({
+                data: '-----------------------------------\nNEW MESSAGE \n' + new Date()
+            })
+            await sendmessage({
+                data: messagedata.name
+            })
+            await sendmessage({
+                data: messagedata.email
+            })
+            await sendmessage({
+                data: messagedata.phone
+            })
+            await sendmessage({
+                data: messagedata.comments + '\n-----------------------------------'
+            })
+
+            // await sendmessage('email:' + messagedata.email)
+            // await sendmessage('phone:' + messagedata.phone)
+            // await sendmessage('comments:' + messagedata.comments)
             alert('we will get back to you soon, thank you!')
+            window.location.href = 'index.html'
             return false
         }
 
@@ -435,12 +451,12 @@
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "https://us-central1-slackbot-f87d9.cloudfunctions.net/remind", true);
                 xhr.onreadystatechange = function () {
-                    if (this.readyState != 4) reject();
+                    // if (this.readyState != 4) return;
                     if (this.status == 200) {
                         console.log(this.responseText);
                         // window.location.reload()
                         // we get the returned data
-                        resolve()
+                        resolve('ok')
                     }
                     // end of state change: it can be after some time (async)
                 };
